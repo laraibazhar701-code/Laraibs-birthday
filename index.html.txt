@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Laraib has a question 😏</title>
+
+<style>
+* { box-sizing: border-box; margin:0; padding:0; }
+
+body {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  background: linear-gradient(135deg,#ffe0f0,#e0f0ff);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  overflow:hidden;
+}
+
+.card {
+  background:white;
+  padding:30px 20px;
+  border-radius:22px;
+  width:92%;
+  max-width:420px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.15);
+  position:relative;
+}
+
+h1 { color:#ff4f8b; font-size:1.8rem; margin-bottom:10px;}
+p { font-size:1rem; margin:8px 0; }
+
+button {
+  width:100%;
+  margin:8px 0;
+  padding:14px;
+  font-size:1rem;
+  border:none;
+  border-radius:30px;
+  background:#ff4f8b;
+  color:white;
+  cursor:pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+button:hover { transform:scale(1.05); background:#ff2f73; }
+
+.hidden{display:none;}
+.warning{color:#ff2f73;font-weight:bold;margin-top:8px;}
+.angry{font-size:42px;}
+.heart{position:absolute;font-size:22px;animation:floatUp 2s ease-out forwards; color:#ff4f8b;}
+@keyframes floatUp { from{opacity:1; transform:translateY(0);} to{opacity:0; transform:translateY(-80px);} }
+
+#noBtn {position:relative;}
+#timer {font-weight:bold;margin:10px 0; font-size:1.1rem;}
+.kiss {position:absolute;font-size:40px;animation:flyKiss 1.5s ease-out forwards;}
+@keyframes flyKiss { from{opacity:1; transform:translate(0,0);} to{opacity:0; transform:translate(100px,-120px) rotate(45deg);} }
+</style>
+</head>
+<body>
+
+<!-- Romantic whimsical music -->
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/audio/2022/08/02/audio_3c92c5bb8d.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+
+  <!-- STEP 1 -->
+  <div id="step1">
+    <h1>Laraib… 💕</h1>
+    <p>This is Laraib (the brave one 😏) asking:</p>
+    <p>Will you go on a date with me?</p>
+    <button onclick="nextStep()">Yes</button>
+    <button onclick="nextStep()">Obviously Yes</button>
+    <button id="noBtn" onclick="runAwayNo()">No 😭</button>
+    <p class="warning" id="emotionalBlackmail">Think carefully… do you really want to hurt my feelings? 😢</p>
+  </div>
+
+  <!-- STEP 2 -->
+  <div id="step2" class="hidden">
+    <h1>Choose wisely 😌</h1>
+    <p>Where are we going?</p>
+    <button onclick="wrongPlace()">Junkyard</button>
+    <button onclick="wrongPlace()">Quetta Paratha</button>
+    <button onclick="correctPlace()">Trio by Maham</button>
+    <div id="angry" class="angry hidden">😡</div>
+    <p id="warning2" class="warning hidden">
+      WRONG. We HATE this place.<br>
+      You cannot proceed unless you choose me correctly.
+    </p>
+    <p id="timer"></p>
+  </div>
+
+  <!-- FINAL -->
+  <div id="final" class="hidden">
+    <h1>It’s a date, Laraib 💖</h1>
+    <p><strong>Time:</strong> 7:00 PM</p>
+    <p><strong>Dress Code:</strong> Whatever you want ✨</p>
+    <p>Because… dates ain’t halal in Ramzan 😏 So early it is!</p>
+    <p>Plot twist 😏 It’s also your birthday party 🎂🎉</p>
+    <p>From,<br><strong>Laraib ❤️</strong></p>
+  </div>
+
+</div>
+
+<script>
+let step1=document.getElementById("step1"),
+    step2=document.getElementById("step2"),
+    final=document.getElementById("final"),
+    angry=document.getElementById("angry"),
+    warning2=document.getElementById("warning2"),
+    timerEl=document.getElementById("timer"),
+    noBtn=document.getElementById("noBtn");
+
+function nextStep(){ step1.classList.add("hidden"); step2.classList.remove("hidden"); spawnHearts(); startTimer(60); }
+
+function wrongPlace(){ angry.classList.remove("hidden"); warning2.classList.remove("hidden"); }
+
+function correctPlace(){ step2.classList.add("hidden"); final.classList.remove("hidden"); spawnHearts(); spawnHearts(); spawnKiss(); }
+
+function spawnHearts(){ for(let i=0;i<12;i++){ const h=document.createElement("div"); h.className="heart"; h.innerText="💖"; h.style.left=Math.random()*100+"%"; h.style.bottom="20px"; document.body.appendChild(h); setTimeout(()=>h.remove(),2000); } }
+
+function spawnKiss(){ for(let i=0;i<8;i++){ const k=document.createElement("div"); k.className="kiss"; k.innerText="😘"; k.style.left=Math.random()*100+"%"; k.style.bottom="20px"; document.body.appendChild(k); setTimeout(()=>k.remove(),1500); } }
+
+// Fake NO button chaos
+function runAwayNo(){ const x=Math.random()*80; const y=Math.random()*80; noBtn.style.transform=`translate(${x}px, ${y}px)`; alert("You can't say no, Laraib 😭💔"); }
+
+// Countdown Timer (in seconds)
+let countdown;
+function startTimer(seconds){ let time=seconds; timerEl.textContent="⏳ "+time+" seconds to choose the right place!"; countdown=setInterval(()=>{ time--; timerEl.textContent="⏳ "+time+" seconds to choose the right place!"; if(time<=0){ clearInterval(countdown); alert("Time's up! Choose quickly next time 😏");
+</script>
+
+</body>
+</html>
